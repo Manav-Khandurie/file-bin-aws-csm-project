@@ -2,7 +2,10 @@ import os
 import boto3
 import hashlib
 import base64
+from aws_xray_sdk.core import xray_recorder
+from aws_xray_sdk.core import patch_all
 
+patch_all()
 def generate_unique_hash(context):
     request_id = context.aws_request_id
     hash_object = hashlib.sha256(request_id.encode())
@@ -42,24 +45,25 @@ def upload_files_to_folder(bucket_name, folder_name, files):
 def lambda_handler(event, context):
     bucket_name = os.environ['BUCKET_NAME']
     files = event['files']
-
-    # Step 1: Generate a unique hash
-    short_hash = generate_unique_hash(context)
-
-    #Step 2: Check if the hash exists in DynamoDB
-    while check_dynamodb(short_hash):
-        # Step 3: Generate a new unique hash if the previous one exists
-        short_hash = generate_unique_hash()
-
-    # Step 4: Add the new hash to DynamoDB
-    add_hash_to_dynamodb(short_hash)
-
-    # Step 5: Create a new folder in S3 bucket
-    folder_name = short_hash
-    create_folder(bucket_name, folder_name)
-
-    # Step 6: Upload files to the newly created folder in S3 bucket
-    upload_files_to_folder(bucket_name, folder_name, files)
+    with xray_recorder.capture('Processing'):
+        # TODO: write code...
+        # Step 1: Generate a unique hash
+        short_hash = generate_unique_hash(context)
+    
+        #Step 2: Check if the hash exists in DynamoDB
+        while check_dynamodb(short_hash):
+            # Step 3: Generate a new unique hash if the previous one exists
+            short_hash = generate_unique_hash()
+    
+        # Step 4: Add the new hash to DynamoDB
+        add_hash_to_dynamodb(short_hash)
+    
+        # Step 5: Create a new folder in S3 bucket
+        folder_name = short_hash
+        create_folder(bucket_name, folder_name)
+    
+        # Step 6: Upload files to the newly created folder in S3 bucket
+        upload_files_to_folder(bucket_name, folder_name, files)
 
     return {
         'statusCode': 200,
