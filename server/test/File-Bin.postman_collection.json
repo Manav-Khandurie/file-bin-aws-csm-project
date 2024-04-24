@@ -1,0 +1,49 @@
+{
+	"info": {
+		"_postman_id": "0b0a020b-b1fc-45c8-b25b-7d3884d02afe",
+		"name": "File-Bin",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26811368",
+		"_collection_link": "https://www.postman.com/orbital-module-engineer-11493836/workspace/postman-api-fundamentals-student-expert/collection/26811368-0b0a020b-b1fc-45c8-b25b-7d3884d02afe?action=share&source=collection_link&creator=26811368"
+	},
+	"item": [
+		{
+			"name": "FullAPITest",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"files\": [\r\n    {\r\n      \"name\": \"file1.txt\",\r\n      \"data\": \"VGhpcyBpcyBhIHNhbXBsZSBmaWxlCg==\"\r\n    },\r\n    {\r\n      \"name\": \"file2.txt\",\r\n      \"data\": \"VGhpcyBpcyBhIHNhbXBsZSBmaWxlCg==\"\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://nl1qqq5zqb.execute-api.us-east-1.amazonaws.com/prod/pvt?Authorization=eyJraWQiOiJzUU5pWjB0emZiZnBhbkxoQnlNdnc1QzQyK2puSnkzWUZrRFVhVkFDMDU0PSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiIyYmNlNmRkZS0zZDA3LTQ2ZGYtYTQ0My00ZGJmNTQ3ZmFmMGUiLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9qTnpUTkVWeUoiLCJ2ZXJzaW9uIjoyLCJjbGllbnRfaWQiOiI1b2J2MmJodDk0ajJtMTc1NWtkOWphaGx2byIsImV2ZW50X2lkIjoiYjAxMGIwYTktZDM0Ni00ODkyLWE0ZDEtOTJjNDc3MTQzMGJmIiwidG9rZW5fdXNlIjoiYWNjZXNzIiwic2NvcGUiOiJhd3MuY29nbml0by5zaWduaW4udXNlci5hZG1pbiBwaG9uZSBvcGVuaWQgcHJvZmlsZSBlbWFpbCIsImF1dGhfdGltZSI6MTcxMzk0ODI1OSwiZXhwIjoxNzEzOTUxODU5LCJpYXQiOjE3MTM5NDgyNTksImp0aSI6ImVmYmUxNzk5LTY4ZjUtNDRkZi04YTg4LWNkYWQ5ZDE0NDc5MSIsInVzZXJuYW1lIjoibWFuYXYta2hhbmR1cmllIn0.iWqmLK7I9g5q39sIeF1A2YTxziZN8eLbAZ-tMbhkSHNxt4DtubQyiuSCDrPbrcUakNSqr4Z8uRWNdG084Qxm3xtiriXD21dPULxDzbmtdMidUy0AgloHSy8hfVw3j4YVIgfUenMy9yO_o4miuNjQot69LvIkeP_fYaBHNBPdWk_YFJm5UrB8bGdzup-8b-TN4OijsOjdDQYcWeWVGhgFUufHTa0QdzxVoV8RLpKlBJZIdVZW3B-Kmf0WRFvx26Gj1hUrZDG-MRHjajIXu5p-VfTJYwahGFeIT7y3AsRJMVxInIBlswVdZk30RXVhbPiL57SDqlDW0RCvvElhDqI9LQ",
+					"protocol": "https",
+					"host": [
+						"nl1qqq5zqb",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"prod",
+						"pvt"
+					],
+					"query": [
+						{
+							"key": "Authorization",
+							"value": "eyJraWQiOiJzUU5pWjB0emZiZnBhbkxoQnlNdnc1QzQyK2puSnkzWUZrRFVhVkFDMDU0PSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiIyYmNlNmRkZS0zZDA3LTQ2ZGYtYTQ0My00ZGJmNTQ3ZmFmMGUiLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9qTnpUTkVWeUoiLCJ2ZXJzaW9uIjoyLCJjbGllbnRfaWQiOiI1b2J2MmJodDk0ajJtMTc1NWtkOWphaGx2byIsImV2ZW50X2lkIjoiYjAxMGIwYTktZDM0Ni00ODkyLWE0ZDEtOTJjNDc3MTQzMGJmIiwidG9rZW5fdXNlIjoiYWNjZXNzIiwic2NvcGUiOiJhd3MuY29nbml0by5zaWduaW4udXNlci5hZG1pbiBwaG9uZSBvcGVuaWQgcHJvZmlsZSBlbWFpbCIsImF1dGhfdGltZSI6MTcxMzk0ODI1OSwiZXhwIjoxNzEzOTUxODU5LCJpYXQiOjE3MTM5NDgyNTksImp0aSI6ImVmYmUxNzk5LTY4ZjUtNDRkZi04YTg4LWNkYWQ5ZDE0NDc5MSIsInVzZXJuYW1lIjoibWFuYXYta2hhbmR1cmllIn0.iWqmLK7I9g5q39sIeF1A2YTxziZN8eLbAZ-tMbhkSHNxt4DtubQyiuSCDrPbrcUakNSqr4Z8uRWNdG084Qxm3xtiriXD21dPULxDzbmtdMidUy0AgloHSy8hfVw3j4YVIgfUenMy9yO_o4miuNjQot69LvIkeP_fYaBHNBPdWk_YFJm5UrB8bGdzup-8b-TN4OijsOjdDQYcWeWVGhgFUufHTa0QdzxVoV8RLpKlBJZIdVZW3B-Kmf0WRFvx26Gj1hUrZDG-MRHjajIXu5p-VfTJYwahGFeIT7y3AsRJMVxInIBlswVdZk30RXVhbPiL57SDqlDW0RCvvElhDqI9LQ"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
