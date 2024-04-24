@@ -1,3 +1,4 @@
+// App.js
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { Amplify } from 'aws-amplify';
@@ -5,7 +6,9 @@ import { awsExports } from './aws-exports';
 import { Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import { Auth } from "aws-amplify";
+import logo from './MainLogo.png';
 
+// Configure AWS Amplify
 Amplify.configure({
   Auth: {
     region: awsExports.REGION,
@@ -20,24 +23,28 @@ function App() {
   const [responseContent, setResponseContent] = useState('');
   const [selectedFiles, setSelectedFiles] = useState([]);
 
+  // Fetch access token on component mount
   useEffect(() => {
     fetchAccessToken();
   }, []);
 
+  // Function to fetch access token
   const fetchAccessToken = async () => {
     try {
       const session = await Auth.currentSession();
-      const token = session.getAccessToken().getJwtToken(); // Get the access token
+      const token = session.getAccessToken().getJwtToken();
       setAccessToken(token);
     } catch (error) {
       console.log('Error fetching access token:', error);
     }
   };
 
+  // Function to handle file change
   const handleFileChange = (event) => {
     setSelectedFiles(event.target.files);
   };
 
+  // Function to handle file upload
   const handleUpload = async () => {
     try {
       const filesData = [];
@@ -46,10 +53,9 @@ function App() {
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = () => {
-          const fileData = reader.result.split(',')[1]; // Get base64-encoded file data
+          const fileData = reader.result.split(',')[1];
           filesData.push({ name: file.name, data: fileData });
           if (filesData.length === selectedFiles.length) {
-            // All files processed, send the request
             sendRequest(filesData);
           }
         };
@@ -59,6 +65,7 @@ function App() {
     }
   };
 
+  // Function to send file upload request
   const sendRequest = async (filesData) => {
     try {
       const apiUrl = 'https://nl1qqq5zqb.execute-api.us-east-1.amazonaws.com/prod/pvt';
@@ -88,76 +95,38 @@ function App() {
   };
 
   return (
-    <Authenticator initialState='signIn'
-      components={{
-        SignUp: {
-          FormFields() {
-            return (
-              <>
-                <Authenticator.SignUp.FormFields />
-
-                {/* Custom fields for given_name and family_name */}
-                <div><label>First name</label></div>
-                <input
-                  type="text"
-                  name="given_name"
-                  placeholder="Please enter your first name"
-                />
-                <div><label>Last name</label></div>
-                <input
-                  type="text"
-                  name="family_name"
-                  placeholder="Please enter your last name"
-                />
-                <div><label>Email</label></div>
-                <input
-                  type="text"
-                  name="email"
-                  placeholder="Please enter a valid email"
-                />
-              </>
-            );
-          },
-        },
-      }}
-      services={{
-        async validateCustomSignUp(formData) {
-          if (!formData.given_name) {
-            return {
-              given_name: 'First Name is required',
-            };
-          }
-          if (!formData.family_name) {
-            return {
-              family_name: 'Last Name is required',
-            };
-          }
-          if (!formData.email) {
-            return {
-              email: 'Email is required',
-            };
-          }
-        },
-      }}
-    >
-      {({ signOut, user }) => (
-        <div>
-          <div>Welcome {user.username}</div>
-          <button onClick={signOut}>Sign out</button>
-          <h4>Your access token:</h4>
-          {accessToken}
-          <div>
-            <h4>Select files to upload:</h4>
-            <input type="file" multiple onChange={handleFileChange} />
-            <button onClick={handleUpload}>Upload</button>
-          </div>
-          <h4>Response Status:</h4>
-          {responseStatus}
-          <h4>Response Content:</h4>
-          <pre>{responseContent}</pre>
+      <div className="container">
+        <div className="header">
+          <Authenticator initialState='signIn'>
+            {({ signOut, user }) => (
+              <div>
+                <div className="logo">
+                  <img src={logo} alt="Main Logo" />
+                </div>
+                <div>Welcome {user.username}</div>
+                <button onClick={signOut}>Sign out</button>
+                <div className="form-section">
+                  {/* <h4>Your access token:</h4>
+                  <div className="token">{accessToken}</div> */}
+                </div>
+                <div className="file-upload form-section">
+                  <h4>Select files to upload:</h4>
+                  <input id="file-upload" type="file" multiple onChange={handleFileChange} />
+                  <label htmlFor="file-upload" className="upload-btn">Choose Files</label>
+                  <button onClick={handleUpload} className="upload-btn">Upload</button>
+                </div>
+                <div className="response-section">
+                  <h4>Response Status:</h4>
+                  <div className="status">{responseStatus}</div>
+                  <h4>Response Content:</h4>
+                  <pre className="content">{responseContent}</pre>
+                </div>
+              </div>
+            )}
+          </Authenticator>
         </div>
-      )}
-    </Authenticator>
+      </div>
+
   );
 }
 
